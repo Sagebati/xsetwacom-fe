@@ -1,3 +1,5 @@
+
+#[derive(Debug)]
 pub struct Device {
     pub name: String,
     pub typ: String,
@@ -5,6 +7,7 @@ pub struct Device {
     pub id: u8,
 }
 
+#[derive(Debug)]
 pub struct Set {
     pub typ: String,
     pub id: u8,
