@@ -1,12 +1,12 @@
 pub mod gtk_fe {
     extern crate gtk;
 
-
     use self::gtk::prelude::*;
 
-    use self::gtk::{Window, TreeView, ListStore};
+    use self::gtk::{Window, TreeView, ListStore,Stack,StackSidebar};
     use xsetwacom::*;
     use xsetwacom::getting::get_devices;
+    use xsetwacom::getting::get_sets_from_id;
 
 
     pub fn init() {
@@ -22,12 +22,20 @@ pub mod gtk_fe {
         let stack: gtk::Stack = builder.get_object("stack").unwrap();
 
         let list_devices: Vec<Device> = get_devices();
-        let sets_device_0: Vec<Set> = getting::get_sets_from_id(list_devices[0].id);
 
         let mut trees: Vec<TreeView> = Vec::new();
         for device in list_devices{
-            trees.push(TreeView::new());
+            let mut tree = create_and_setup_view();
+            let liststore = create_and_fill_model(get_sets_from_id(device.id));
+            tree.set_model(&liststore);
+            trees.push(tree);
         }
+
+
+        for tree in trees{
+            stack.add(&tree);
+        }
+
 
         window.show_all();
 

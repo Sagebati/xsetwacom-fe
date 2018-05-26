@@ -5,6 +5,7 @@ authors = ["Samuel Batissou <samuelbatissou@gmail.com>"]
 
 [dependencies]
 text_io = "0.1.7"
+gio = "*"
 
 [dependencies.gtk]
 version = "0.4.0"
